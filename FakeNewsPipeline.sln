@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakeNewsPipeline", "FakeNewsPipeline\FakeNewsPipeline.csproj", "{F635255F-A606-4926-88FD-2E23AD65F6ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9E149B35-2544-4339-9D6E-CF2B48ED6CD3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F635255F-A606-4926-88FD-2E23AD65F6ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F635255F-A606-4926-88FD-2E23AD65F6ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F635255F-A606-4926-88FD-2E23AD65F6ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F635255F-A606-4926-88FD-2E23AD65F6ED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {67CDCFF3-AE42-4ED4-A476-9A5292FB1B4E}
+	EndGlobalSection
+EndGlobal

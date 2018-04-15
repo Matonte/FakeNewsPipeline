@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +11,11 @@ using KafkaNet.Protocol;
 
 namespace KafkaConsumer
 {
-    class Program
+    class KafkaConsumer
     {
-        static void kafkaConsumer()
+        public static DateTime dt = DateTime.Now;
+
+        public static void kafkaConsumer()
         {
             OffsetPosition[] offsetPositions = new OffsetPosition[]
        {
@@ -24,7 +27,7 @@ namespace KafkaConsumer
        };
             var options = new KafkaOptions(new Uri("http://localhost:9092"),
             new Uri("http://localhost:9092"));
-            var consumer = new KafkaNet.Consumer(new ConsumerOptions("test",
+            var consumer = new KafkaNet.Consumer(new ConsumerOptions("newtest1",
                new BrokerRouter(options)), offsetPositions);
 
 
@@ -41,6 +44,39 @@ namespace KafkaConsumer
                             Encoding.UTF8.GetString(message.Value));
                             Console.SetOut(writer);
                             Console.WriteLine(originalConsoleOut);
+                            //////creating a new line 
+                            dt = DateTime.Now;
+                            String tweet = Encoding.UTF8.GetString(message.Value);
+                            int trunc = tweet.Length - 2;
+
+                            tweet = tweet.Substring(2, trunc);
+                            int nameend = tweet.IndexOf(':');
+                            int namestart = tweet.IndexOf('@');
+
+                            int indexOfAtSign = tweet.IndexOf("@");
+                            int indexOfColon = tweet.IndexOf(":");
+                            string name = " ";
+                            string body = " ";
+                            if (indexOfAtSign >= 1 && indexOfColon >= 1)
+                            {
+                                try
+                                {
+                                    name = tweet.Substring(indexOfAtSign + 1, indexOfColon - indexOfAtSign - 1);
+                                }
+                                catch (Exception)
+                                {
+                                    name = tweet.Substring(3, 10);
+                                }
+
+
+                                body = tweet.Substring(indexOfColon + 1, tweet.Length - indexOfColon - 1);
+                            }
+
+
+
+                            var newLine = $"{name},{ dt},{body}";
+                            csv.AppendLine(newLine);
+                            File.WriteAllText(@"C:\Users\billm\source\repos\ConsoleApp2\testingTweets.csv", csv.ToString());
                         }
                     }
                 }
@@ -49,9 +85,16 @@ namespace KafkaConsumer
             }
         }
 
+
+        public static StringBuilder csv;
+
         static void Main(string[] args)
         {
+
+            csv = new StringBuilder();
+
             kafkaConsumer();
         }
+
     }
 }

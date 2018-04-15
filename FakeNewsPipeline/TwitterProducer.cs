@@ -8,10 +8,10 @@ using KafkaNet;
 using KafkaNet.Model;
 using KafkaNet.Protocol;
 using System.IO;
-
+using KafkaConsumer;
 namespace TwitterApp
 {
-    class Program
+    class TwitterApp
     {
 
        public static void twitterInfo()
@@ -21,9 +21,9 @@ namespace TwitterApp
             var router = new BrokerRouter(options);
             var client = new KafkaNet.Producer(router);
 
-          const String topic = "test";
+          const   String topic = "newtest1";
 	 	  const   String tokenSecret = "FbcP68UtZR8U6n0AIMkBZHxgx4hzv3ibLQrU35qQipQ7Y";
-		  const   String consumerSecret = "CqsVHqSKW4S6hH6eGrq9B4PvKCZZElJ8XLFMeJihEouyJHl9xH";
+		  const   String consumerSecret = "xL20m2W34vg8dhxjxvBs0R9vvx3dZCw0fYAG9UjhVRBqgHTQ9d";
 	      const   String token = "2710082868-swCbtRmmODBOB6TMbsDGIQNMCUKoATTVAwbCQwi";
 	      const   String consumerKey = "XC6GdAJVYF9jMQqS68bQOu6kG";
 
@@ -33,19 +33,20 @@ namespace TwitterApp
 
             stream.MatchingTweetReceived += (sender, arguments) =>
           {
-       
-           
-
-              client.SendMessageAsync("test", new[]
-                   { new  KafkaNet.Protocol.Message("tweet:  " + arguments.Tweet.Text) }).Wait();
-
+              Console.WriteLine(arguments.Tweet.Text);
+              client.SendMessageAsync(topic, new[]
+                   { new  KafkaNet.Protocol.Message( arguments.Tweet.Text) }).Wait();
+              
           };
             stream.StartStreamMatchingAllConditions();
         }
 
     static void Main(string[] args)
         {
+
             twitterInfo();
+           
+
         }
     }
 }
